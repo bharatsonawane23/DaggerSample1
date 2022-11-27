@@ -1,9 +1,8 @@
 package com.bsitapps.daggersample1.di.module;
 
-import com.bsitapps.daggersample1.data.local.DatabaseService;
-import com.bsitapps.daggersample1.data.remote.NetworkService;
+import android.content.Context;
+
 import com.bsitapps.daggersample1.ui.MainActivity;
-import com.bsitapps.daggersample1.ui.MainViewModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,7 +17,7 @@ public class ActivityModule {
     }
 
     @Provides
-    public MainViewModel providesMainViewModel(DatabaseService databaseService, NetworkService networkService) {
-        return new MainViewModel(networkService, databaseService);
+    Context provideContext() {
+        return mainActivity;
     }
 }

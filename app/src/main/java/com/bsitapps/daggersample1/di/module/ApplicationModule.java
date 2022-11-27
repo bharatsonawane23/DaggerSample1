@@ -1,10 +1,10 @@
 package com.bsitapps.daggersample1.di.module;
 
-import com.bsitapps.daggersample1.MyApplication;
-import com.bsitapps.daggersample1.data.local.DatabaseService;
-import com.bsitapps.daggersample1.data.remote.NetworkService;
+import android.content.Context;
 
-import javax.inject.Singleton;
+import com.bsitapps.daggersample1.MyApplication;
+import com.bsitapps.daggersample1.di.qualifier.DatabaseInfo;
+import com.bsitapps.daggersample1.di.qualifier.NetworkInfo;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,15 +18,26 @@ public class ApplicationModule {
         this.myApplication = application;
     }
 
-    @Singleton
     @Provides
-    NetworkService provideNetworkService() {
-        return new NetworkService(myApplication, "apiKey");
+    Context provideContext() {
+        return myApplication;
     }
 
-    @Singleton
+    @DatabaseInfo
     @Provides
-    DatabaseService provideDatabaseService() {
-        return new DatabaseService(1, "databaseKey");
+    String provideDatabaseName() {
+        return "databaseName";
     }
+
+    @NetworkInfo
+    @Provides
+    String provideApiKey() {
+        return "apiKey";
+    }
+
+    @Provides
+    int provideDatabaseVersion() {
+        return 1;
+    }
+
 }
